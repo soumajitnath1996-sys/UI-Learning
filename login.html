@@ -1,21 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div>
-        <h2>Login</h2>
-        <input type="number" id="mobileNo" placeholder="Enter Mobile No">
-        <input type="password" id="password" placeholder="Enter Password">
-        <button onclick="login()">Login</button>
-        <p id = "message"></p>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <div class="login-card">
+        <h2>Nath Family Business Management</h2>
+
+        <p class="subtitle">Please sign in to your account</p>
+        <div class="input-group">
+          <label>Mobile Number</label>
+          <input type="text" id="mobileNo" placeholder="Enter Mobile Number" />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter Password" />
+        </div>
+        <button id="loginBtn" onclick="login()">Sign In</button>
+
+        <p id="message"></p>
+      </div>
     </div>
 
     <script src="script.js"></script>
-    
-</body>
+  </body>
 </html>
