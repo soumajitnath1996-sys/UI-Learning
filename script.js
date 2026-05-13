@@ -36,10 +36,7 @@ async function login(){
 
         if(response.ok){
 
-            localStorage.setItem(
-                "userData",
-                JSON.stringify(data)
-            );
+            localStorage.setItem("token", data.token);
 
             // small delay for smooth UX
             setTimeout(()=>{
