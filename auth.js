@@ -33,6 +33,22 @@ function getCurrentUser(){
     return parseJwt(token);
 }
 
+function getAuthHeaders() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("No token found in localStorage");
+        window.location.href = "login.html";
+        return;
+    }
+
+    return {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+    };
+}
+
 function logout(){
 
     localStorage.clear();

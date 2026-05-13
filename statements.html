@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Statements</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <h2>Business Management</h2>
+
+        <nav>
+
+            <a href="dashboard.html">Dashboard</a>
+
+            <a href="#">Users</a>
+
+            <a href="#">Businesses</a>
+
+            <a href="statements.html">Statements</a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <div class="top-bar">
+
+            <div>
+
+                <label>Select Business:</label>
+
+                <select id="businessDropdown">
+
+                    <option>Loading...</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="user-box">
+
+                <span id="userName"></span>
+
+                <span id="userType"></span>
+
+                <button onclick="logout()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Statement Section -->
+        <div class="page-content">
+
+            <div class="page-header">
+
+                <h1>Statement Management</h1>
+
+                <button>Add Statement</button>
+
+            </div>
+
+
+            <!-- Filters -->
+            <div class="filter-box">
+
+                <!-- Type -->
+                <select id="transactionType">
+
+                    <option value="">---</option>
+
+                    <option value="Income">Income</option>
+
+                    <option value="Expenditure">Expenditure</option>
+
+                    <option value="Deposit to Fund">Deposit to Fund</option>
+
+                    <option value="Withdraw from Fund">Withdraw from Fund</option>
+
+                </select>
+
+
+
+                <!-- Transaction By -->
+                <select id="transactionBy">
+
+                    <option value="">---</option>
+
+                    <option value="Fund">Fund</option>
+
+                </select>
+
+
+
+                <!-- Search -->
+                <input
+                    type="text"
+                    id="searchText"
+                    placeholder="Search subject..."
+                >
+
+
+                <button onclick="applyFilters()">
+
+                    Search
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Table -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Type</th>
+
+                            <th>Amount</th>
+
+                            <th>Subject</th>
+
+                            <th>Transaction By</th>
+
+                            <th>Note</th>
+
+                            <th>Updated At</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="statementTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- Pagination -->
+            <div class="pagination-box">
+
+                <button onclick="previousPage()">
+
+                    Previous
+
+                </button>
+
+
+                <span id="pageInfo">
+
+                    Page 1
+
+                </span>
+
+
+                <button onclick="nextPage()">
+
+                    Next
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="auth.js"></script>
+<script src="statements.js"></script>
+
+</body>
+
+</html>
