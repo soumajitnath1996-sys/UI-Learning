@@ -1,204 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <title>Statements</title>
-    <link rel="stylesheet" href="dashboard.css">
-</head>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
 
-<body>
-
-<div class="layout">
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
         <h2>Business Management</h2>
 
         <nav>
+          <a href="dashboard.html">Dashboard</a>
 
-            <a href="dashboard.html">Dashboard</a>
+          <a href="#">Users</a>
 
-            <a href="#">Users</a>
+          <a href="#">Businesses</a>
 
-            <a href="#">Businesses</a>
-
-            <a href="statements.html">Statements</a>
-
+          <a href="statements.html">Statements</a>
         </nav>
+      </aside>
 
-    </aside>
-
-
-    <!-- Main -->
-    <main class="main-content">
-
+      <!-- Main -->
+      <main class="main-content">
         <!-- Header -->
         <div class="top-bar">
+          <div>
+            <label>Select Business:</label>
 
-            <div>
+            <select id="businessDropdown">
+              <option>Loading...</option>
+            </select>
+          </div>
 
-                <label>Select Business:</label>
+          <div class="user-box">
+            <span id="userName"></span>
 
-                <select id="businessDropdown">
+            <span id="userType"></span>
 
-                    <option>Loading...</option>
-
-                </select>
-
-            </div>
-
-
-            <div class="user-box">
-
-                <span id="userName"></span>
-
-                <span id="userType"></span>
-
-                <button onclick="logout()">
-
-                    Logout
-
-                </button>
-
-            </div>
-
+            <button onclick="logout()">Logout</button>
+          </div>
         </div>
-
-
 
         <!-- Statement Section -->
         <div class="page-content">
+          <div class="page-header">
+            <h1>Statement Management</h1>
 
-            <div class="page-header">
+            <button class="primary-btn" onclick="openStatementModal()">
+              Add Statement
+            </button>
+          </div>
 
-                <h1>Statement Management</h1>
+          <!-- Filters -->
+          <div class="filter-box">
+            <!-- Type -->
+            <select id="transactionType">
+              <option value="">---</option>
 
-                <button>Add Statement</button>
+              <option value="Income">Income</option>
 
-            </div>
+              <option value="Expenditure">Expenditure</option>
 
+              <option value="Deposit to Fund">Deposit to Fund</option>
 
-            <!-- Filters -->
-            <div class="filter-box">
+              <option value="Withdraw from Fund">Withdraw from Fund</option>
+            </select>
 
-                <!-- Type -->
-                <select id="transactionType">
+            <!-- Transaction By -->
+            <select id="transactionBy">
+              <option value="">---</option>
 
-                    <option value="">---</option>
+              <option value="Fund">Fund</option>
+            </select>
 
-                    <option value="Income">Income</option>
+            <!-- Search -->
+            <input
+              type="text"
+              id="searchText"
+              placeholder="Search subject..."
+            />
 
-                    <option value="Expenditure">Expenditure</option>
+            <button onclick="applyFilters()">Search</button>
+          </div>
 
-                    <option value="Deposit to Fund">Deposit to Fund</option>
+          <!-- Table -->
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
 
-                    <option value="Withdraw from Fund">Withdraw from Fund</option>
+                  <th>Amount</th>
 
-                </select>
+                  <th>Subject</th>
 
+                  <th>Transaction By</th>
 
+                  <th>Note</th>
 
-                <!-- Transaction By -->
-                <select id="transactionBy">
+                  <th>Updated At</th>
+                </tr>
+              </thead>
 
-                    <option value="">---</option>
+              <tbody id="statementTableBody"></tbody>
+            </table>
+          </div>
 
-                    <option value="Fund">Fund</option>
+          <!-- Pagination -->
+          <div class="pagination-box">
+            <button onclick="previousPage()">Previous</button>
 
-                </select>
+            <span id="pageInfo"> Page 1 </span>
 
+            <button onclick="nextPage()">Next</button>
+          </div>
 
+          <!-- Add Statement Modal -->
+          <div id="statementModal" class="modal hidden">
+            <div class="modal-content">
+              <h2>Add Statement</h2>
 
-                <!-- Search -->
-                <input
-                    type="text"
-                    id="searchText"
-                    placeholder="Search subject..."
-                >
+              <!-- Business -->
+              <label>Business</label>
 
+              <select id="modalBusiness"></select>
 
-                <button onclick="applyFilters()">
+              <!-- Type -->
+              <label>Transaction Type</label>
 
-                    Search
+              <select id="modalTransactionType">
+                <option value="Income" selected>Income</option>
 
+                <option value="Expenditure">Expenditure</option>
+
+                <option value="Deposit to Fund">Deposit to Fund</option>
+
+                <option value="Withdraw from Fund">Withdraw from Fund</option>
+              </select>
+
+              <!-- Amount -->
+              <label>Amount</label>
+
+              <input
+                type="number"
+                step="0.01"
+                id="modalAmount"
+                placeholder="Enter amount"
+              />
+
+              <!-- Subject -->
+              <label>Subject</label>
+
+              <input
+                type="text"
+                id="modalSubject"
+                placeholder="Enter subject"
+              />
+
+              <!-- Transaction By -->
+              <label>Transaction By</label>
+
+              <select id="modalTransactionBy">
+                <option value="Fund" selected>Fund</option>
+              </select>
+
+              <!-- Note -->
+              <label>Note</label>
+
+              <textarea
+                id="modalNote"
+                rows="4"
+                placeholder="Optional note"
+              ></textarea>
+
+              <div class="modal-buttons">
+                <button onclick="closeStatementModal()">Cancel</button>
+
+                <button class="primary-btn" onclick="saveStatement()">
+                  Save
                 </button>
-
+              </div>
             </div>
-
-
-
-            <!-- Table -->
-            <div class="table-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Type</th>
-
-                            <th>Amount</th>
-
-                            <th>Subject</th>
-
-                            <th>Transaction By</th>
-
-                            <th>Note</th>
-
-                            <th>Updated At</th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="statementTableBody">
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-
-
-            <!-- Pagination -->
-            <div class="pagination-box">
-
-                <button onclick="previousPage()">
-
-                    Previous
-
-                </button>
-
-
-                <span id="pageInfo">
-
-                    Page 1
-
-                </span>
-
-
-                <button onclick="nextPage()">
-
-                    Next
-
-                </button>
-
-            </div>
-
+          </div>
         </div>
+      </main>
+    </div>
 
-    </main>
-
-</div>
-
-
-<script src="auth.js"></script>
-<script src="statements.js"></script>
-
-</body>
-
+    <script src="auth.js"></script>
+    <script src="statements.js"></script>
+  </body>
 </html>

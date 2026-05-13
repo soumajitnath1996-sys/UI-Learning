@@ -129,6 +129,183 @@ function renderStatements(statements) {
   });
 }
 
+function openStatementModal() {
+
+    const modal =
+        document.getElementById(
+            "statementModal"
+        );
+
+    modal.classList.remove("hidden");
+
+
+    // selected business from page
+    const selectedBusiness =
+        document.getElementById(
+            "businessDropdown"
+        );
+
+    const modalBusiness =
+        document.getElementById(
+            "modalBusiness"
+        );
+
+    modalBusiness.innerHTML =
+        selectedBusiness.innerHTML;
+
+    modalBusiness.value =
+        selectedBusiness.value;
+
+}
+
+function closeStatementModal() {
+
+    document
+        .getElementById(
+            "statementModal"
+        )
+        .classList.add("hidden");
+
+}
+
+async function saveStatement() {
+
+    try {
+
+        const businessId =
+            document.getElementById(
+                "modalBusiness"
+            ).value;
+
+        const transactionType =
+            document.getElementById(
+                "modalTransactionType"
+            ).value;
+
+        const amount =
+            document.getElementById(
+                "modalAmount"
+            ).value;
+
+        const subject =
+            document.getElementById(
+                "modalSubject"
+            ).value;
+
+        const transactionBy =
+            document.getElementById(
+                "modalTransactionBy"
+            ).value;
+
+        const note =
+            document.getElementById(
+                "modalNote"
+            ).value;
+
+
+        // validation
+        if (
+            !businessId ||
+            !transactionType ||
+            !amount ||
+            !subject ||
+            !transactionBy
+        ) {
+
+            alert(
+                "Please fill all required fields"
+            );
+
+            return;
+
+        }
+
+
+        const requestBody = {
+
+            businessId,
+
+            transactionType,
+
+            amount: Number(amount),
+
+            subject,
+
+            transactionBy,
+
+            note,
+
+            transactionByIdValid: false
+
+        };
+
+
+        console.log(
+            "Saving statement:",
+            requestBody
+        );
+
+
+        const response =
+            await fetch(
+                "http://localhost:8080/api/statements",
+                {
+                    method: "POST",
+
+                    headers:
+                        getAuthHeaders(),
+
+                    body: JSON.stringify(
+                        requestBody
+                    )
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Save response:",
+            data
+        );
+
+
+        if (response.ok) {
+
+            alert(
+                "Statement saved successfully"
+            );
+
+            closeStatementModal();
+
+            loadStatements();
+
+        } else {
+
+            alert(
+                data.message ||
+                "Failed to save statement"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Save statement error:",
+            error
+        );
+
+        alert(
+            "Something went wrong"
+        );
+
+    }
+
+}
+
 function applyFilters() {
   currentPage = 0;
 
